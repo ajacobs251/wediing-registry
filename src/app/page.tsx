@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { ImageSlideshow } from "@/components/image-slideshow";
 import { getPublicProducts } from "@/lib/airtable";
 import { formatCurrency } from "@/lib/money";
+
+const slideshowImages = Array.from({ length: 13 }, (_, index) => ({
+  src: `/images/slideshow/slide-${String(index + 1).padStart(2, "0")}.jpg`,
+  alt: `Wedding slideshow photo ${index + 1}`,
+}));
 
 export default async function Home() {
   const products = await getPublicProducts();
@@ -9,13 +15,14 @@ export default async function Home() {
   const featuredProducts = activeProducts.slice(0, 3);
   return (
     <div className="page-shell">
+      <ImageSlideshow images={slideshowImages} />
       <section className="hero">
         <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
         <h1>Wedding in Blue:</h1>
         <h1>A Symphony of Love</h1>
         <p className="hero-copy">
           Browse curated wedding items, add favorites to your cart, submit an
-          order, and complete payment through Venmo using your order note.
+          order, and complete payment through your chosen delivery method using your order note.
         </p>
         <div className="hero-actions">
           <Link className="button primary" href="/products">

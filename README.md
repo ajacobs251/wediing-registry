@@ -61,7 +61,7 @@ Expected fields:
 - `Total Inventory`
 - `Reserved Quantity`
 - `Sold Quantity`
-- `Available Quantity` optional
+- `Available Quantity` number field, updated by the app as `Total Inventory - Reserved Quantity - Sold Quantity`
 
 ### Orders
 

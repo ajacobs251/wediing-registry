@@ -1,4 +1,5 @@
 import { sampleProducts } from "@/data/sample-products";
+import { calculateAvailableQuantity } from "@/lib/inventory";
 import { generateOrderId } from "@/lib/order-id";
 import { getPaymentOption, paymentMethodLabels } from "@/lib/payments";
 import type {
@@ -52,8 +53,6 @@ function getValidPaymentMethod(method: PaymentMethod) {
 
   return method;
 }
-
-
 export async function getPublicProducts(): Promise<Product[]> {
   if (!isAirtableConfigured()) {
     return sampleProducts;
@@ -252,12 +251,21 @@ async function createAirtableOrderItems(
 async function reserveAirtableInventory(lineItems: ValidatedLineItem[]) {
   const records = lineItems
     .filter((item) => item.product.airtableRecordId)
-    .map((item) => ({
-      id: item.product.airtableRecordId,
-      fields: {
-        "Reserved Quantity": item.product.reservedQuantity + item.quantity,
-      },
-    }));
+    .map((item) => {
+      const reservedQuantity = item.product.reservedQuantity + item.quantity;
+
+      return {
+        id: item.product.airtableRecordId,
+        fields: {
+          "Reserved Quantity": reservedQuantity,
+          "Available Quantity": calculateAvailableQuantity({
+            totalInventory: item.product.totalInventory,
+            reservedQuantity,
+            soldQuantity: item.product.soldQuantity,
+          }),
+        },
+      };
+    });
 
   for (const chunk of chunkRecords(records, 10)) {
     await airtableFetch(airtableConfig.productsTable, "", {
@@ -298,9 +306,11 @@ function mapAirtableProduct(record: AirtableRecord): Product {
   const totalInventory = asNumber(fields["Total Inventory"]);
   const reservedQuantity = asNumber(fields["Reserved Quantity"]);
   const soldQuantity = asNumber(fields["Sold Quantity"]);
-  const availableQuantity =
-    asOptionalNumber(fields["Available Quantity"]) ??
-    Math.max(totalInventory - reservedQuantity - soldQuantity, 0);
+  const availableQuantity = calculateAvailableQuantity({
+    totalInventory,
+    reservedQuantity,
+    soldQuantity,
+  });
   const sku = asString(fields.SKU) || record.id;
 
   return {
@@ -343,11 +353,6 @@ function asString(value: unknown) {
 function asNumber(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
-
-function asOptionalNumber(value: unknown) {
-  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
-}
-
 function asBoolean(value: unknown) {
   if (typeof value === "boolean") {
     return value;
