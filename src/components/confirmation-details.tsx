@@ -41,16 +41,9 @@ export function ConfirmationDetails() {
       <section className="checkout-card">
         <p className="eyebrow">Order created</p>
         <h2>{order.orderId}</h2>
-        {order.demoMode ? (
-          <p className="error-text">
-            Demo mode: add Airtable environment variables to Vercel before taking
-            real orders.
-          </p>
-        ) : (
-          <p className="success-text">
-            Saved in Airtable as pending {order.paymentMethodLabel}.
-          </p>
-        )}
+        <p className="success-text">
+          Your order has been created. Finish payment using the instructions.
+        </p>
         {order.items.map((item) => (
           <div className="summary-row" key={item.productId}>
             <span>

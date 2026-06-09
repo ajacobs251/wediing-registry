@@ -105,7 +105,6 @@ export async function createOrderFromCheckout(
     paymentNote: payment.note,
     checkMailingAddress: payment.checkMailingAddress,
     paymentStatus: "Pending Payment",
-    demoMode: !isAirtableConfigured(),
   };
 
   if (isAirtableConfigured()) {

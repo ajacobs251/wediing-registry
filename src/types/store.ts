@@ -64,5 +64,4 @@ export type OrderSummary = {
   paymentNote: string;
   checkMailingAddress?: string;
   paymentStatus: "Pending Payment";
-  demoMode: boolean;
 };

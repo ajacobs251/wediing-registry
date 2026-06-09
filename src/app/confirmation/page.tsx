@@ -5,9 +5,9 @@ export default function ConfirmationPage() {
     <div className="page-shell">
       <section className="section-heading">
         <p className="eyebrow">Confirmation</p>
-        <h1>Finish payment with Venmo</h1>
+        <h1>Finish your payment</h1>
         <p>
-          Use the order ID in your Venmo note so the payment can be matched to
+          Use the required payment note below so your payment can be matched to
           your order.
         </p>
       </section>

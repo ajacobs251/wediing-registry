@@ -15,6 +15,7 @@ export function SiteHeader() {
         <nav className="nav-links" aria-label="Primary navigation">
           <Link href="/">Home</Link>
           <Link href="/products">Products</Link>
+          <Link href="/wedding-info">Wedding Info</Link>
           <Link href="/cart" className="cart-link">
             Cart <span className="cart-count">{itemCount}</span>
           </Link>

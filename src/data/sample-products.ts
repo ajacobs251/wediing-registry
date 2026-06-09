@@ -10,7 +10,7 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     description: "A selection of cocktails on the honeymoon.",
     priceCents: 2500,
     imageUrl:
-      "https:assets3.thrillist.com/v1/image/3129619/750x500/flatten;crop;webp=auto;jpeg_quality=50.jpg",
+      "https://assets3.thrillist.com/v1/image/3129619/750x500/flatten;crop;webp=auto;jpeg_quality=50.jpg",
     isActive: true,
     totalInventory: 40,
     reservedQuantity: 0,

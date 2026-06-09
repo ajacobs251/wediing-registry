@@ -338,6 +338,28 @@ main {
   font-size: 1.35rem;
   font-weight: 800;
 }
+.wedding-info-list {
+  display: grid;
+  border-top: 1px solid var(--border);
+}
+
+.wedding-info-list-item {
+  display: grid;
+  gap: 10px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  white-space: pre-line;
+}
+
+.wedding-info-list-item h2 {
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+.wedding-info-list-item p:not(.eyebrow) {
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.7;
+}
 
 .category-card small,
 .muted {
