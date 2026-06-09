@@ -15,7 +15,7 @@ const weddingDetails = [
     label: "Dress Code",
     title: "Black and Shades of Blue Attire",
     description:
-      "Anything formal or semi-formal in black, navy, royal blue, light blue, or other shades of blue is encouraged. We will be indoors for the ceremony and photos but there are outside places available.",
+      "Anything formal or semi-formal in navy, royal blue, light blue, or other shades of blue is encouraged. We will be indoors for the ceremony and photos but there are outside places available.",
   },
   {
     label: "Food",

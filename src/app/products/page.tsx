@@ -10,8 +10,7 @@ export default async function ProductsPage() {
         <p className="eyebrow">Products</p>
         <h1>Shop by type</h1>
         <p>
-          Choose wedding details for the celebration. Your cart is saved in this
-          browser, and inventory is checked again during checkout.
+          Choose wedding gifts and experiences for the happy couple. Browse by category or scroll through all items to find the perfect gift. We are so grateful for your generosity and can&apos;t wait to celebrate with you!
         </p>
       </section>
       <ProductsGrid products={products} />

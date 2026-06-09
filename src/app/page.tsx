@@ -20,10 +20,6 @@ export default async function Home() {
         <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
         <h1>Wedding in Blue:</h1>
         <h1>A Symphony of Love</h1>
-        <p className="hero-copy">
-          Browse curated wedding items, add favorites to your cart, submit an
-          order, and complete payment through your chosen delivery method using your order note.
-        </p>
         <div className="hero-actions">
           <Link className="button primary" href="/products">
             Browse products

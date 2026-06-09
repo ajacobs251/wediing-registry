@@ -104,10 +104,12 @@ main {
   align-items: center;
   justify-content: center;
   margin-left: 6px;
+  padding: 0 8px;
   border-radius: 999px;
   background: var(--primary);
-  color: #fff;
+  color: #0b1942;
   font-size: 0.8rem;
+  font-weight: 850;
 }
 
 .page-shell {
@@ -437,6 +439,49 @@ main {
   color: var(--danger);
 }
 
+.add-to-cart-picker {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px 52px;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-to-cart-picker button {
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: #0b1942;
+  font-weight: 850;
+}
+
+.add-to-cart-picker button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.add-to-cart-picker strong {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--foreground);
+  font-size: 1.1rem;
+}
+
+.confirm-add-button {
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.14);
+}
+
+.added-to-cart-message {
+  color: var(--primary);
+  font-weight: 850;
+  text-align: center;
+}
+
 .cart-layout,
 .checkout-layout {
   display: grid;
@@ -486,7 +531,7 @@ main {
   margin-top: 10px;
 }
 
-.quantity-control button,
+.quantity-control button:not(.text-button),
 .text-button {
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -495,12 +540,15 @@ main {
   font-weight: 750;
 }
 
-.quantity-control button {
+.quantity-control button:not(.text-button) {
   width: 32px;
   height: 32px;
 }
 
 .text-button {
+  width: auto;
+  height: auto;
+  min-height: 32px;
   padding: 8px 12px;
 }
 
