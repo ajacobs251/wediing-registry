@@ -1,66 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { getPublicProducts } from "@/lib/airtable";
+import { formatCurrency } from "@/lib/money";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getPublicProducts();
+  const activeProducts = products.filter((product) => product.isActive);
+  const categories = Array.from(new Set(activeProducts.map((product) => product.type)));
+  const featuredProducts = activeProducts.slice(0, 3);
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="page-shell">
+      <section className="hero">
+        <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
+        <h1>Wedding in Blue:</h1>
+        <h1>A Symphony of Love</h1>
+        <p className="hero-copy">
+          Browse curated wedding items, add favorites to your cart, submit an
+          order, and complete payment through Venmo using your order note.
+        </p>
+        <div className="hero-actions">
+          <Link className="button primary" href="/products">
+            Browse products
+          </Link>
+          <Link className="button secondary" href="/cart">
+            View cart
+          </Link>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="section">
+        <div className="section-heading">
+          <p className="eyebrow">Categories</p>
+          <h2>Shop by type</h2>
         </div>
-      </main>
+        <div className="category-grid">
+          {categories.map((category) => (
+            <Link className="category-card" href={`/products#${category}`} key={category}>
+              <span>{category}</span>
+              <small>
+                {
+                  activeProducts.filter((product) => product.type === category)
+                    .length
+                }{" "}
+                items
+              </small>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-heading">
+          <p className="eyebrow">Featured</p>
+          <h2>Ready for the celebration</h2>
+        </div>
+        <div className="product-grid">
+          {featuredProducts.map((product) => (
+            <article className="product-card compact" key={product.id}>
+              <div className="product-image-wrap">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={product.imageUrl} alt="" className="product-image" />
+              </div>
+              <div className="product-card-body">
+                <p className="product-type">{product.type}</p>
+                <h3>{product.name}</h3>
+                <p className="product-price">{formatCurrency(product.priceCents)}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

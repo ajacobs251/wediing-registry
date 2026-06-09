@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wedding Website
 
-## Getting Started
+A Next.js storefront for curated wedding items. The app uses:
 
-First, run the development server:
+- Next.js App Router and TypeScript
+- Vercel hosting
+- Client-side cart storage with `localStorage`
+- Airtable for products, inventory, orders, and order items
+- Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
+- QR-based checkout for Venmo, Cash App, and PayPal
+
+## Local development
+
+Install dependencies and start the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Without Airtable environment variables, the app runs in demo mode with sample products and demo order creation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+Copy `.env.example` to `.env.local` and fill in the values:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+copy .env.example .env.local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Required for real Airtable-backed orders:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `AIRTABLE_API_TOKEN`
+- `AIRTABLE_BASE_ID`
+- `AIRTABLE_PRODUCTS_TABLE`
+- `AIRTABLE_ORDERS_TABLE`
+- `AIRTABLE_ORDER_ITEMS_TABLE`
+- `NEXT_PUBLIC_VENMO_USERNAME`
+- `NEXT_PUBLIC_CASHAPP_CASHTAG`
+- `NEXT_PUBLIC_PAYPAL_ME_HANDLE`
 
-## Deploy on Vercel
+The Mail In Check address is intentionally kept as a code placeholder. Update it in `src/lib/payments.ts` by replacing the `CHECK_MAILING_ADDRESS` lines with the real mailing address.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Airtable schema
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create these tables:
+
+### Products
+
+Expected fields:
+
+- `SKU`
+- `Name`
+- `Type`
+- `Description`
+- `Price Cents`
+- `Image URL` or `Image`
+- `Active`
+- `Total Inventory`
+- `Reserved Quantity`
+- `Sold Quantity`
+- `Available Quantity` optional
+
+### Orders
+
+Expected fields:
+
+- `Order ID`
+- `Customer Name`
+- `Email`
+- `Phone`
+- `Notes`
+- `Subtotal Cents`
+- `Fees Cents`
+- `Total Cents`
+- `Payment Method`
+- `Payment Status`
+- `Fulfillment Status`
+- `Payment Note`
+
+### Order Items
+
+Expected fields:
+
+- `Order`
+- `Product`
+- `Product ID`
+- `Product Name`
+- `Quantity`
+- `Unit Price Cents`
+- `Line Total Cents`
+
+## Workflow
+
+1. Customer browses products by type.
+2. Customer adds items to the browser-stored cart.
+3. Customer selects Venmo, Cash App, PayPal, or Mail In Check.
+4. The server validates inventory against Airtable.
+5. The server creates Airtable order and order item records.
+6. Customer follows the selected payment instructions and confirms before checkout.
+7. The confirmation page shows the saved order and selected payment details.
+8. You manually match the payment to the Airtable order and update the order status.
+
+## Deploying to Vercel
+
+Connect the GitHub repository to Vercel, add the environment variables in Vercel project settings, and deploy. Do not use `output: "export"` because the Airtable integration needs server-side route handlers.
