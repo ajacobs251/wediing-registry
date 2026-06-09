@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ImageSlideshow } from "@/components/image-slideshow";
 import { getPublicProducts } from "@/lib/airtable";
 import { formatCurrency } from "@/lib/money";
@@ -17,16 +18,28 @@ export default async function Home() {
     <div className="page-shell">
       <ImageSlideshow images={slideshowImages} />
       <section className="hero">
-        <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
-        <h1>Wedding in Blue:</h1>
-        <h1>A Symphony of Love</h1>
-        <div className="hero-actions">
-          <Link className="button primary" href="/products">
-            Browse products
-          </Link>
-          <Link className="button secondary" href="/cart">
-            View cart
-          </Link>
+        <div className="hero-content">
+          <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
+          <h1>Wedding in Blue:</h1>
+          <h1>A Symphony of Love</h1>
+          <div className="hero-actions">
+            <Link className="button primary" href="/products">
+              Browse products
+            </Link>
+            <Link className="button secondary" href="/cart">
+              View cart
+            </Link>
+          </div>
+        </div>
+        <div className="hero-image-card">
+          <Image
+            src="/images/home-picture.png"
+            alt="Kenzie and Alex dressed for Wedding in Blue"
+            fill
+            sizes="(max-width: 780px) 100vw, 420px"
+            className="hero-image"
+            priority
+          />
         </div>
       </section>
 
