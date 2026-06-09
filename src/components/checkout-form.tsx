@@ -13,6 +13,7 @@ const initialCustomer: CustomerInfo = {
   email: "",
   phone: "",
   paymentMethod: "venmo",
+  registryUserName: "",
   notes: "",
 };
 
@@ -25,7 +26,7 @@ export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const paymentOption = getPaymentOption(
     customer.paymentMethod,
-    customer.name.trim() || "Your name",
+    customer.registryUserName,
   );
 
   const checkoutItems = useMemo(
@@ -219,7 +220,23 @@ export function CheckoutForm() {
           ) : null}
           <div className="payment-detail">
             <span>Required note</span>
-            <strong>{paymentOption.note}</strong>
+            <div className="payment-note-builder">
+              <strong>Registry User -</strong>
+              <input
+                id="registryUserName"
+                placeholder="Customer"
+                aria-label="Registry user name for payment note"
+                value={customer.registryUserName}
+                onChange={(event) => {
+                  setHasConfirmedPayment(false);
+                  setCustomer((current) => ({
+                    ...current,
+                    registryUserName: event.target.value,
+                  }));
+                }}
+              />
+            </div>
+            <strong className="payment-note-preview">{paymentOption.note}</strong>
           </div>
           {paymentOption.url ? (
             <a

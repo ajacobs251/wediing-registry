@@ -30,6 +30,7 @@ export type CustomerInfo = {
   email: string;
   phone: string;
   paymentMethod: PaymentMethod;
+  registryUserName: string;
   notes: string;
 };
 

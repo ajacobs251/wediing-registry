@@ -1,4 +1,5 @@
 import { sampleProducts } from "@/data/sample-products";
+import { sendRegistryOrderNotification } from "@/lib/email";
 import { calculateAvailableQuantity } from "@/lib/inventory";
 import { generateOrderId } from "@/lib/order-id";
 import { getPaymentOption, paymentMethodLabels } from "@/lib/payments";
@@ -80,7 +81,7 @@ export async function createOrderFromCheckout(
   const totalCents = subtotalCents + feesCents;
   const payment = getPaymentOption(
     getValidPaymentMethod(checkout.customer.paymentMethod),
-    checkout.customer.name,
+    checkout.customer.registryUserName,
   );
   const summaryItems: OrderSummaryItem[] = lineItems.map((item) => ({
     productId: item.product.id,
@@ -111,7 +112,26 @@ export async function createOrderFromCheckout(
     await createAirtableOrder(checkout, summary, lineItems);
   }
 
+  await notifyRegistryOrder(checkout, lineItems);
+
   return summary;
+}
+
+async function notifyRegistryOrder(
+  checkout: CheckoutRequest,
+  lineItems: ValidatedLineItem[],
+) {
+  try {
+    await sendRegistryOrderNotification({
+      customerName: checkout.customer.registryUserName,
+      items: lineItems.map((item) => ({
+        name: item.product.name,
+        quantity: item.quantity,
+      })),
+    });
+  } catch (error) {
+    console.error("Unable to send registry email notification.", error);
+  }
 }
 
 function validateCheckout(checkout: CheckoutRequest, products: Product[]) {

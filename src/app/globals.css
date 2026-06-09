@@ -576,6 +576,26 @@ main {
   font-size: 1.2rem;
 }
 
+.payment-note-builder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment-note-builder input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: #0b1942;
+  padding: 10px 14px;
+}
+
+.payment-note-preview {
+  display: block;
+}
+
 .payment-address {
   margin: 0;
   border: 1px solid var(--border);

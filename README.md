@@ -8,6 +8,7 @@ A Next.js storefront for curated wedding items. The app uses:
 - Airtable for products, inventory, orders, and order items
 - Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
 - QR-based checkout for Venmo, Cash App, and PayPal
+- Resend email notifications when registry items are purchased
 
 ## Local development
 
@@ -40,8 +41,12 @@ Required for real Airtable-backed orders:
 - `NEXT_PUBLIC_VENMO_USERNAME`
 - `NEXT_PUBLIC_CASHAPP_CASHTAG`
 - `NEXT_PUBLIC_PAYPAL_ME_HANDLE`
+- `RESEND_API_KEY`
+- `REGISTRY_EMAIL_FROM`
 
 The Mail In Check address is intentionally kept as a code placeholder. Update it in `src/lib/payments.ts` by replacing the `CHECK_MAILING_ADDRESS` lines with the real mailing address.
+
+`REGISTRY_EMAIL_FROM` must be a sender address verified in Resend, for example `Wedding Registry <registry@yourdomain.com>`. If `RESEND_API_KEY` or `REGISTRY_EMAIL_FROM` is missing, checkout still works but the email notification is skipped.
 
 ## Airtable schema
 
@@ -101,7 +106,8 @@ Expected fields:
 5. The server creates Airtable order and order item records.
 6. Customer follows the selected payment instructions and confirms before checkout.
 7. The confirmation page shows the saved order and selected payment details.
-8. You manually match the payment to the Airtable order and update the order status.
+8. The app sends a `Registry Item Received` email to the configured registry notification recipients.
+9. You manually match the payment to the Airtable order and update the order status.
 
 ## Deploying to Vercel
 

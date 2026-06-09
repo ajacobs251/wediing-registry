@@ -38,8 +38,8 @@ export const paymentMethodLabels: Record<PaymentMethod, string> = {
   "mail-in-check": "Mail In Check",
 };
 
-export function getPaymentOption(method: PaymentMethod, customerName = "Customer"): PaymentOption {
-  const note = `Wedding Website - ${customerName.trim() || "Customer"}`;
+export function getPaymentOption(method: PaymentMethod, registryUserName = "Customer"): PaymentOption {
+  const note = `Registry User - ${registryUserName.trim() || "Customer"}`;
 
   if (method === "cashapp") {
     const url = `https://cash.app/$${cleanCashAppCashtag}`;
