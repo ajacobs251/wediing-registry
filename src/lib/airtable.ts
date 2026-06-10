@@ -1,5 +1,8 @@
 import { sampleProducts } from "@/data/sample-products";
-import { sendRegistryOrderNotification } from "@/lib/email";
+import {
+  sendCustomerOrderReceipt,
+  sendRegistryOrderNotification,
+} from "@/lib/email";
 import { calculateAvailableQuantity } from "@/lib/inventory";
 import { generateOrderId } from "@/lib/order-id";
 import { getPaymentOption, paymentMethodLabels } from "@/lib/payments";
@@ -112,6 +115,7 @@ export async function createOrderFromCheckout(
   }
 
   await notifyRegistryOrder(checkout, lineItems);
+  await notifyCustomerOrderReceipt(checkout, summary);
 
   return summary;
 }
@@ -133,13 +137,29 @@ async function notifyRegistryOrder(
   }
 }
 
+async function notifyCustomerOrderReceipt(
+  checkout: CheckoutRequest,
+  summary: OrderSummary,
+) {
+  try {
+    await sendCustomerOrderReceipt({
+      customerEmail: checkout.customer.email,
+      customerName: checkout.customer.name,
+      orderId: summary.orderId,
+      items: summary.items.map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+        lineTotalCents: item.lineTotalCents,
+      })),
+    });
+  } catch (error) {
+    console.error("Unable to send customer receipt email.", error);
+  }
+}
+
 function validateCheckout(checkout: CheckoutRequest, products: Product[]) {
   if (!checkout.customer?.name?.trim()) {
     throw new Error("Customer name is required.");
-  }
-
-  if (!checkout.customer?.email?.trim()) {
-    throw new Error("Customer email is required.");
   }
   getValidPaymentMethod(checkout.customer.paymentMethod);
 

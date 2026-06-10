@@ -8,7 +8,7 @@ A Next.js storefront for curated wedding items. The app uses:
 - Airtable for products, inventory, orders, and order items
 - Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
 - QR-based checkout for Venmo, Cash App, and PayPal
-- Resend email notifications when registry items are purchased
+- Resend email notifications when registry items are purchased, including optional customer receipt emails
 
 ## Local development
 
@@ -107,7 +107,8 @@ Expected fields:
 6. Customer follows the selected payment instructions and confirms before checkout.
 7. The confirmation page shows the saved order and selected payment details.
 8. The app sends a `Registry Item Received` email to the configured registry notification recipients.
-9. You manually match the payment to the Airtable order and update the order status.
+9. If the customer entered an email address, the app sends them a receipt with their purchased items, amounts, confirmation code, and the home picture.
+10. You manually match the payment to the Airtable order and update the order status.
 
 ## Deploying to Vercel
 

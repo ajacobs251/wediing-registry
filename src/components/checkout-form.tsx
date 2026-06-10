@@ -115,10 +115,9 @@ export function CheckoutForm() {
           />
         </div>
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email for receipt (optional)</label>
           <input
             id="email"
-            required
             type="email"
             value={customer.email}
             onChange={(event) =>
