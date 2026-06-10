@@ -114,7 +114,7 @@ export async function createOrderFromCheckout(
     await createAirtableOrder(checkout, summary, lineItems);
   }
 
-  await notifyRegistryOrder(checkout, lineItems);
+  await notifyRegistryOrder(checkout, summary, lineItems);
   await notifyCustomerOrderReceipt(checkout, summary);
 
   return summary;
@@ -122,11 +122,13 @@ export async function createOrderFromCheckout(
 
 async function notifyRegistryOrder(
   checkout: CheckoutRequest,
+  summary: OrderSummary,
   lineItems: ValidatedLineItem[],
 ) {
   try {
     await sendRegistryOrderNotification({
       customerName: checkout.customer.registryUserName,
+      orderId: summary.orderId,
       items: lineItems.map((item) => ({
         name: item.product.name,
         quantity: item.quantity,
@@ -151,6 +153,7 @@ async function notifyCustomerOrderReceipt(
         quantity: item.quantity,
         lineTotalCents: item.lineTotalCents,
       })),
+      totalCents: summary.totalCents,
     });
   } catch (error) {
     console.error("Unable to send customer receipt email.", error);

@@ -12,6 +12,7 @@ type RegistryNotificationItem = {
 
 type RegistryNotificationInput = {
   customerName: string;
+  orderId: string;
   items: RegistryNotificationItem[];
 };
 type CustomerReceiptItem = {
@@ -25,6 +26,7 @@ type CustomerReceiptInput = {
   customerName: string;
   orderId: string;
   items: CustomerReceiptItem[];
+  totalCents: number;
 };
 
 const registryNotificationRecipients = [
@@ -44,6 +46,7 @@ const receiptImagePath = path.join(
 
 export async function sendRegistryOrderNotification({
   customerName,
+  orderId,
   items,
 }: RegistryNotificationInput) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -58,9 +61,8 @@ export async function sendRegistryOrderNotification({
 
   const resend = new Resend(apiKey);
   const displayName = customerName.trim() || "Customer";
-  const text = items
-    .map((item) => `${displayName} has just bought ${item.quantity} ${item.name}`)
-    .join("\n");
+  const itemList = formatItemList(items);
+  const text = `${displayName} has just bought ${itemList}\nConfirmation code: ${orderId}`;
 
   await resend.emails.send({
     from,
@@ -75,6 +77,7 @@ export async function sendCustomerOrderReceipt({
   customerName,
   orderId,
   items,
+  totalCents,
 }: CustomerReceiptInput) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.REGISTRY_EMAIL_FROM;
@@ -93,17 +96,9 @@ export async function sendCustomerOrderReceipt({
 
   const resend = new Resend(apiKey);
   const displayName = customerName.trim() || "Customer";
-  const itemMessages = items.map(
-    (item) =>
-      `Thank you ${displayName} so much for buying us ${item.quantity} ${item.name}! We really appreciate it and look forward to enjoying the gift you have given us!\nAmount: ${formatCurrency(item.lineTotalCents)}`,
-  );
-  const text = `${itemMessages.join("\n\n")}\n\nYour confirmation code is ${orderId}`;
-  const htmlItemMessages = items
-    .map(
-      (item) => `<p>Thank you ${escapeHtml(displayName)} so much for buying us ${item.quantity} ${escapeHtml(item.name)}! We really appreciate it and look forward to enjoying the gift you have given us!</p>
-<p><strong>Amount:</strong> ${formatCurrency(item.lineTotalCents)}</p>`,
-    )
-    .join("");
+  const itemList = formatItemList(items);
+  const thankYouMessage = `Thank you ${displayName} so much for buying us ${itemList}! We really appreciate it and look forward to enjoying the gift you have given us!`;
+  const text = `${thankYouMessage}\n\nAmount: ${formatCurrency(totalCents)}\n\nYour confirmation code is ${orderId}`;
 
   await resend.emails.send({
     from,
@@ -111,7 +106,8 @@ export async function sendCustomerOrderReceipt({
     subject: customerReceiptSubject,
     text,
     html: `<div style="font-family: Georgia, serif; color: #0b1942; line-height: 1.6;">
-${htmlItemMessages}
+<p>${escapeHtml(thankYouMessage)}</p>
+<p><strong>Amount:</strong> ${formatCurrency(totalCents)}</p>
 <p><strong>Your confirmation code is ${escapeHtml(orderId)}</strong></p>
 <img src="cid:${receiptImageContentId}" alt="Kenzie and Alex" style="display: block; width: 100%; max-width: 560px; height: auto; margin-top: 24px; border-radius: 16px;" />
 </div>`,
@@ -124,6 +120,20 @@ ${htmlItemMessages}
       },
     ],
   });
+}
+
+function formatItemList(items: Array<{ name: string; quantity: number }>) {
+  const itemLabels = items.map((item) => `${item.quantity} ${item.name}`);
+
+  if (itemLabels.length <= 1) {
+    return itemLabels[0] ?? "gift";
+  }
+
+  if (itemLabels.length === 2) {
+    return `${itemLabels[0]} and ${itemLabels[1]}`;
+  }
+
+  return `${itemLabels.slice(0, -1).join(", ")}, and ${itemLabels[itemLabels.length - 1]}`;
 }
 
 function escapeHtml(value: string) {
