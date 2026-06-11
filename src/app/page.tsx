@@ -19,7 +19,7 @@ export default async function Home() {
       <ImageSlideshow images={slideshowImages} />
       <section className="hero">
         <div className="hero-content">
-          <p className="eyebrow">Wedding Registry for Kenzie and Alex</p>
+          <p className="eyebrow">Wedding Website for Kenzie and Alex</p>
           <h1>Wedding in Blue:</h1>
           <h1>A Symphony of Love</h1>
           <div className="hero-actions">
