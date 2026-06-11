@@ -10,7 +10,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-header-inner">
         <Link href="/" className="brand">
-          Wedding Registry
+          Wedding Website
         </Link>
         <nav className="nav-links" aria-label="Primary navigation">
           <Link href="/">Home</Link>
