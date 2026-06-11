@@ -5,7 +5,7 @@ A Next.js storefront for curated wedding items. The app uses:
 - Next.js App Router and TypeScript
 - Vercel hosting
 - Client-side cart storage with `localStorage`
-- Airtable for products, inventory, orders, and order items
+- Airtable for products, orders, and order items
 - Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
 - QR-based checkout for Venmo, Cash App, and PayPal
 - Resend email notifications when registry items are purchased, including optional customer receipt emails
@@ -63,10 +63,6 @@ Expected fields:
 - `Price Cents`
 - `Image URL` or `Image`
 - `Active`
-- `Total Inventory`
-- `Reserved Quantity`
-- `Sold Quantity`
-- `Available Quantity` number field, updated by the app as `Total Inventory - Reserved Quantity - Sold Quantity`
 
 ### Orders
 
@@ -102,7 +98,7 @@ Expected fields:
 1. Customer browses products by type.
 2. Customer adds items to the browser-stored cart.
 3. Customer selects Venmo, Cash App, PayPal, or Mail In Check.
-4. The server validates inventory against Airtable.
+4. The server validates the selected products against Airtable.
 5. The server creates Airtable order and order item records.
 6. Customer follows the selected payment instructions and confirms before checkout.
 7. The confirmation page shows the saved order and selected payment details.

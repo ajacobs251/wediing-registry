@@ -8,10 +8,6 @@ export type Product = {
   priceCents: number;
   imageUrl: string;
   isActive: boolean;
-  totalInventory: number;
-  reservedQuantity: number;
-  soldQuantity: number;
-  availableQuantity: number;
 };
 
 export type CartProductSnapshot = Pick<

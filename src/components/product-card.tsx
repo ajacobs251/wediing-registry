@@ -10,9 +10,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [isChoosingQuantity, setIsChoosingQuantity] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
-  const isLowAvailability = product.availableQuantity <= 5;
-  const isSoldOut = product.availableQuantity < 1;
-  const maxSelectableQuantity = Math.min(product.availableQuantity, 99);
+  const maxSelectableQuantity = 99;
 
   useEffect(() => {
     if (!showAddedMessage) {
@@ -64,11 +62,6 @@ export function ProductCard({ product }: { product: Product }) {
         <h3>{product.name}</h3>
         <p className="product-description">{product.description}</p>
         <p className="product-price">{formatCurrency(product.priceCents)}</p>
-        <p className={`availability ${isLowAvailability ? "low" : ""}`}>
-          {isSoldOut
-            ? "Sold out"
-            : `${product.availableQuantity} available`}
-        </p>
         {isChoosingQuantity ? (
           <div className="add-to-cart-picker" aria-label="Choose quantity">
             <button
@@ -98,12 +91,8 @@ export function ProductCard({ product }: { product: Product }) {
             </button>
           </div>
         ) : (
-          <button
-            className="button primary full"
-            disabled={isSoldOut}
-            onClick={handleAddToCart}
-          >
-            {isSoldOut ? "Unavailable" : "Add to cart"}
+          <button className="button primary full" onClick={handleAddToCart}>
+            Add to cart
           </button>
         )}
         {showAddedMessage ? (

@@ -3,7 +3,6 @@ import {
   sendCustomerOrderReceipt,
   sendRegistryOrderNotification,
 } from "@/lib/email";
-import { calculateAvailableQuantity } from "@/lib/inventory";
 import { generateOrderId } from "@/lib/order-id";
 import { getPaymentOption, paymentMethodLabels } from "@/lib/payments";
 import type {
@@ -185,16 +184,13 @@ function validateCheckout(checkout: CheckoutRequest, products: Product[]) {
     mergedItems.set(item.productId, (mergedItems.get(item.productId) ?? 0) + item.quantity);
   }
 
-  return Array.from(mergedItems.entries()).map(([productId, quantity]) => {
-    const product = productsById.get(productId);
+  return Array.from(mergedItems.entries()).map(([cartProductId, quantity]) => {
+    const product = productsById.get(cartProductId);
 
     if (!product || !product.isActive) {
       throw new Error("One or more products are no longer available.");
     }
 
-    if (product.availableQuantity < quantity) {
-      throw new Error(`${product.name} only has ${product.availableQuantity} available.`);
-    }
 
     return {
       product,
@@ -263,7 +259,6 @@ async function createAirtableOrder(
   }
 
   await createAirtableOrderItems(createdOrderId, lineItems);
-  await reserveAirtableInventory(lineItems);
 }
 
 async function createAirtableOrderItems(
@@ -290,32 +285,6 @@ async function createAirtableOrderItems(
   }
 }
 
-async function reserveAirtableInventory(lineItems: ValidatedLineItem[]) {
-  const records = lineItems
-    .filter((item) => item.product.airtableRecordId)
-    .map((item) => {
-      const reservedQuantity = item.product.reservedQuantity + item.quantity;
-
-      return {
-        id: item.product.airtableRecordId,
-        fields: {
-          "Reserved Quantity": reservedQuantity,
-          "Available Quantity": calculateAvailableQuantity({
-            totalInventory: item.product.totalInventory,
-            reservedQuantity,
-            soldQuantity: item.product.soldQuantity,
-          }),
-        },
-      };
-    });
-
-  for (const chunk of chunkRecords(records, 10)) {
-    await airtableFetch(airtableConfig.productsTable, "", {
-      method: "PATCH",
-      body: JSON.stringify({ records: chunk }),
-    });
-  }
-}
 
 async function airtableFetch<T>(
   tableName: string,
@@ -345,14 +314,6 @@ async function airtableFetch<T>(
 
 function mapAirtableProduct(record: AirtableRecord): Product {
   const fields = record.fields;
-  const totalInventory = asNumber(fields["Total Inventory"]);
-  const reservedQuantity = asNumber(fields["Reserved Quantity"]);
-  const soldQuantity = asNumber(fields["Sold Quantity"]);
-  const availableQuantity = calculateAvailableQuantity({
-    totalInventory,
-    reservedQuantity,
-    soldQuantity,
-  });
   const sku = asString(fields.SKU) || record.id;
 
   return {
@@ -365,10 +326,6 @@ function mapAirtableProduct(record: AirtableRecord): Product {
     priceCents: asNumber(fields["Price Cents"]),
     imageUrl: getImageUrl(fields["Image URL"]) || getImageUrl(fields.Image),
     isActive: asBoolean(fields.Active),
-    totalInventory,
-    reservedQuantity,
-    soldQuantity,
-    availableQuantity,
   };
 }
 

@@ -1,5 +1,11 @@
 const weddingDetails = [
   {
+    label: "Day of the Wedding",
+    title: "December 12, 2026",
+    description:
+      "Dress for cold weather",
+  },
+  {
     label: "Venue Location",
     title: "Brookside Chapel",
     description:
@@ -13,7 +19,7 @@ const weddingDetails = [
   },
   {
     label: "Dress Code",
-    title: "Black and Shades of Blue Attire",
+    title: "Shades of Blue Attire",
     description:
       "Anything formal or semi-formal in navy, royal blue, light blue, or other shades of blue is encouraged. We will be indoors for the ceremony and photos but there are outside places available.",
   },
@@ -44,7 +50,7 @@ export default function WeddingInfoPage() {
         <p className="eyebrow">Wedding Info</p>
         <h1>Everything guests need to know</h1>
         <p>
-          Find wedding-day details here, including the venue location, estimated
+          Find wedding-day details here, including the venue location, date, estimated
           start time, dress code, food information, and other notes for guests.
         </p>
       </section>

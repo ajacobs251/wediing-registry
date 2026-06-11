@@ -7,8 +7,8 @@ export default function CartPage() {
         <p className="eyebrow">Cart</p>
         <h1>Review your order</h1>
         <p>
-          Adjust quantities before checkout. Final availability is confirmed when
-          the order is created.
+          Adjust quantities before checkout. Your final total is confirmed when
+          your order is created.
         </p>
       </section>
       <CartView />

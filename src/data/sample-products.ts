@@ -1,7 +1,6 @@
 import type { Product } from "@/types/store";
-import { withCalculatedAvailableQuantity } from "@/lib/inventory";
 
-const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
+export const sampleProducts: Product[] = [
   {
     id: "honeymoon-cocktails",
     sku: "HONEYMOON-COCKTAILS",
@@ -12,9 +11,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://assets3.thrillist.com/v1/image/3129619/750x500/flatten;crop;webp=auto;jpeg_quality=50.jpg",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "airfare-honeymoon",
@@ -26,9 +22,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6JO1cb5t1IKm_QEUZEU4CZsOLasF4IuJMXg&s",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "favor-candle",
@@ -40,9 +33,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=80",
     isActive: true,
-    totalInventory: 120,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "dog-sitting-service",
@@ -54,9 +44,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "morning-coffee",
@@ -68,9 +55,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://media.istockphoto.com/id/518593585/photo/cup-of-coffee.jpg?s=612x612&w=0&k=20&c=TyosoZUHEeE48CbEWKoL4ff4PS1ebcy8j0HnRWieGXQ=",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "ramsay-restaurant-experience",
@@ -82,9 +66,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/fc/c3/fb/20170320-214859-hdr-largejpg.jpg?w=900&h=500&s=1",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "dintaifung-restaurant-experience",
@@ -96,9 +77,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://platform.vegas.eater.com/wp-content/uploads/sites/24/chorus/uploads/chorus_asset/file/21972554/VICTA_EATER_DIN_TAI_FUNG__MASCOT_AND_SHOW_KITCHEN.jpg?quality=90&strip=all&crop=0,0,100,100",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "nachodaddy-restaurant-experience",
@@ -110,9 +88,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://assets.simpleviewinc.com/simpleview/image/upload/crm/saltlake/Main-Pic_003C0EF2-A46F-47AD-FB9E307A7A306FC2-003c0c96a2cd218_003c4cfd-9c47-fbd9-db81b7f32ccf52a7.jpg",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "museum-of-celebrity-wax-figures",
@@ -124,9 +99,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://cdn.tripster.com/media/product/gallery/original/Madame_Tussauds_Las_Vegas_(95029).jpg",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "museum-of-illusion",
@@ -138,9 +110,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/68/88/d5/caption.jpg?w=1200&h=1200&s=1",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "atv-rides-in-nevada-desert",
@@ -152,9 +121,6 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://adrenalinejunkies.co/wp-content/uploads/2025/06/Having-Fun-image-768x1024.png",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
   {
     id: "honeymoon-fund",
@@ -166,12 +132,5 @@ const rawSampleProducts: Array<Omit<Product, "availableQuantity">> = [
     imageUrl:
       "https://i.ebayimg.com/images/g/h~IAAOSw8blmR6O9/s-l1200.jpg",
     isActive: true,
-    totalInventory: 40,
-    reservedQuantity: 0,
-    soldQuantity: 0,
   },
 ];
-
-export const sampleProducts: Product[] = rawSampleProducts.map(
-  withCalculatedAvailableQuantity,
-);

@@ -1,14 +1,14 @@
 :root {
-  --background: #0b1942;
-  --card: #264593;
-  --card-muted: #264593;
+  --background: #095274;
+  --card: #095274;
+  --card-muted: #095274;
   --foreground: #ffffff;
   --muted: #d7ddea;
   --border: #33466f;
   --primary: #ffffff;
   --primary-dark: #e8edf7;
   --accent: #ffffff;
-  --success: #347d55;
+  --success: #055a2b;
   --danger: #ffb4ab;
   --shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
 }
@@ -64,9 +64,9 @@ main {
   position: sticky;
   top: 0;
   z-index: 20;
+  font-family: Brush Script MT, "Brush Script MT", ui-serif, Georgia, serif;
   border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(11, 25, 66, 0.92);
-  backdrop-filter: blur(18px);
 }
 
 .site-header-inner {
@@ -82,6 +82,9 @@ main {
 .brand {
   font-weight: 800;
   letter-spacing: -0.04em;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
   font-size: 1.35rem;
 }
 
@@ -89,6 +92,7 @@ main {
   display: flex;
   align-items: center;
   gap: 20px;
+  font-family: Gabriola, "Gabriola", ui-serif, Georgia, serif;
   color: var(--muted);
   font-weight: 650;
 }
@@ -224,10 +228,11 @@ main {
 
 .hero h1 {
   max-width: 720px;
-  font-size: clamp(2.7rem, 5.9vw, 5.2rem);
+  font-size: clamp(2.3rem, 4.2vw, 5.0rem);
+  font-family: Brush Script MT, "Brush Script MT", ui-serif, Georgia, serif;
   line-height: 0.95;
   letter-spacing: 0.01em;
-  word-spacing: 0.18em;
+  word-spacing: 0.05em;
 }
 .hero-image-card {
   position: relative;
@@ -452,14 +457,6 @@ main {
   font-weight: 850;
 }
 
-.availability {
-  color: var(--success);
-  font-weight: 700;
-}
-
-.availability.low {
-  color: var(--danger);
-}
 
 .add-to-cart-picker {
   display: grid;
