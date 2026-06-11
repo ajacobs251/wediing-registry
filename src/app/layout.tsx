@@ -4,8 +4,8 @@ import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wedding Registry",
-  description: "A Wedding Registry for Kenzie and Alex",
+  title: "Wedding Website",
+  description: "A Wedding Website for Kenzie and Alex",
 };
 
 export default function RootLayout({
