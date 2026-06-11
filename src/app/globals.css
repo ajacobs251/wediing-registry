@@ -315,13 +315,14 @@ main {
   display: grid;
   gap: 8px;
   margin-bottom: 20px;
+  letter-spacing: 0.08em;
 }
 
 .section-heading h1,
 .section-heading h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1;
-  letter-spacing: -0.06em;
+  letter-spacing: 0.04em;
 }
 
 .section-heading p:not(.eyebrow) {
@@ -334,7 +335,7 @@ main {
   color: var(--primary);
   font-size: 0.8rem;
   font-weight: 850;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -398,12 +399,13 @@ main {
 .product-section {
   margin-top: 42px;
   scroll-margin-top: 96px;
+  letter-spacing: 0.06em;
 }
 
 .product-section-title {
   margin-bottom: 16px;
   font-size: 1.8rem;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.12em;
 }
 
 .product-card {
@@ -435,7 +437,7 @@ main {
 
 .product-card-body h3 {
   font-size: 1.2rem;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.05em;
 }
 
 .product-type {

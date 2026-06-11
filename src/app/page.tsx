@@ -24,7 +24,7 @@ export default async function Home() {
           <h1>A Symphony of Love</h1>
           <div className="hero-actions">
             <Link className="button primary" href="/products">
-              Browse products
+              Browse Registry
             </Link>
             <Link className="button secondary" href="/cart">
               View cart
