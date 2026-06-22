@@ -3,7 +3,13 @@ const weddingDetails = [
     label: "Day of the Wedding",
     title: "December 12, 2026",
     description:
-      "Dress for cold weather",
+      " ",
+  },
+  {
+    label: "Estimated Start Time",
+    title: "2:30 PM",
+    description:
+      " ",
   },
   {
     label: "Venue Location",
@@ -12,28 +18,22 @@ const weddingDetails = [
       "2251 Pesnell Ct\nMobile, AL 36695",
   },
   {
-    label: "Estimated Start Time",
-    title: "4:00 PM",
-    description:
-      "This will be from 4 to 10 p.m.",
-  },
-  {
     label: "Dress Code",
     title: "Shades of Blue Attire",
     description:
-      "Anything formal or semi-formal in navy, royal blue, light blue, or other shades of blue is encouraged. We will be indoors for the ceremony and photos but there are outside places available.",
+      "Formal or semi-formal in navy, royal blue, light blue, or other shades of blue is encouraged. We will be indoors for the ceremony and photos but there are outside places available.",
   },
   {
     label: "Food",
     title: "Food details to be announced",
     description:
-      "Add meal, dessert, drink, allergy, and dietary accommodation details here.",
+      "TBA",
   },
   {
     label: "Schedule",
     title: "Wedding day timeline",
     description:
-      "Add the main events guests should know about, such as ceremony, photos, dinner, speeches, and send-off.",
+      "TBA",
   },
   {
     label: "Questions",
@@ -49,10 +49,6 @@ export default function WeddingInfoPage() {
       <section className="section-heading">
         <p className="eyebrow">Wedding Info</p>
         <h1>Everything guests need to know</h1>
-        <p>
-          Find wedding-day details here, including the venue location, date, estimated
-          start time, dress code, food information, and other notes for guests.
-        </p>
       </section>
 
       <section className="wedding-info-list" aria-label="Wedding details">
