@@ -714,6 +714,33 @@ main {
   margin-top: 2px;
 }
 
+.rsvp-form {
+  max-width: 720px;
+}
+
+.rsvp-thank-you {
+  display: grid;
+  gap: 20px;
+  text-align: center;
+}
+
+.rsvp-thank-you h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.rsvp-thank-you-image {
+  position: relative;
+  min-height: clamp(360px, 65vw, 760px);
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.rsvp-thank-you-image img {
+  object-fit: cover;
+  object-position: center 35%;
+}
+
 @media (max-width: 780px) {
   .site-header-inner {
     min-height: auto;

@@ -28,6 +28,11 @@ type CustomerReceiptInput = {
   items: CustomerReceiptItem[];
   totalCents: number;
 };
+type RsvpNotificationInput = {
+  name: string;
+  email: string;
+  foodAllergies: string;
+};
 
 const registryNotificationRecipients = [
   "addRus32@gmail.com",
@@ -36,6 +41,7 @@ const registryNotificationRecipients = [
 
 const registryEmailSubject = "Registry Item Received";
 const customerReceiptSubject = "Wedding Registry Confirmation";
+const rsvpNotificationSubject = "Wedding RSVP Received";
 const receiptImageContentId = "wedding-home-picture";
 const receiptImagePath = path.join(
   process.cwd(),
@@ -122,6 +128,34 @@ export async function sendCustomerOrderReceipt({
   });
 }
 
+export async function sendRsvpNotification({
+  name,
+  email,
+  foodAllergies,
+}: RsvpNotificationInput) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.REGISTRY_EMAIL_FROM;
+
+  if (!apiKey || !from) {
+    console.warn(
+      "Skipping RSVP email notification because RESEND_API_KEY or REGISTRY_EMAIL_FROM is not configured.",
+    );
+    return;
+  }
+
+  const resend = new Resend(apiKey);
+  const displayName = name.trim() || "Guest";
+  const displayEmail = email.trim() || "no email provided";
+  const displayFoodAllergies = foodAllergies.trim() || "no";
+  const text = `${displayName} at ${displayEmail} has RSVP'd to the wedding. They have listed ${displayFoodAllergies} food allergies.`;
+
+  await resend.emails.send({
+    from,
+    to: registryNotificationRecipients,
+    subject: rsvpNotificationSubject,
+    text,
+  });
+}
 function formatItemList(items: Array<{ name: string; quantity: number }>) {
   const itemLabels = items.map((item) => `${item.quantity} ${item.name}`);
 
