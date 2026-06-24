@@ -1,18 +1,40 @@
 import Link from "next/link";
 import Image from "next/image";
+import path from "node:path";
+import { readdir } from "node:fs/promises";
+
 import { ImageSlideshow } from "@/components/image-slideshow";
 import { getPublicProducts } from "@/lib/airtable";
 import { formatCurrency } from "@/lib/money";
 
-const slideshowImages = Array.from({ length: 13 }, (_, index) => ({
-  src: `/images/slideshow/slide-${String(index + 1).padStart(2, "0")}.jpg`,
-  alt: `Wedding slideshow photo ${index + 1}`,
-}));
+async function getSlideshowImages() {
+  const slideshowDir = path.join(process.cwd(), "public", "images", "slideshow");
+
+  try {
+    const files = await readdir(slideshowDir);
+    const imageFiles = files
+      .filter((file) => file.toLowerCase().match(/\.(jpg|jpeg|png|webp)$/))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+
+    return imageFiles.map((file, index) => ({
+      src: `/images/slideshow/${file}`,
+      alt: `Wedding slideshow photo ${index + 1}`,
+    }));
+  } catch {
+    // Fallback to the original naming convention.
+    return Array.from({ length: 13 }, (_, index) => ({
+      src: `/images/slideshow/slide-${String(index + 1).padStart(2, "0")}.jpg`,
+      alt: `Wedding slideshow photo ${index + 1}`,
+    }));
+  }
+}
 
 export default async function Home() {
   const products = await getPublicProducts();
   const activeProducts = products.filter((product) => product.isActive);
   const featuredProducts = activeProducts.slice(0, 3);
+  const slideshowImages = await getSlideshowImages();
+
   return (
     <div className="page-shell">
       <ImageSlideshow images={slideshowImages} />
