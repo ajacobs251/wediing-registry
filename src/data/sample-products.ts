@@ -5,7 +5,6 @@ export const sampleProducts: Product[] = [
     id: "honeymoon-cocktails",
     sku: "HONEYMOON-COCKTAILS",
     name: "Honeymoon Cocktails",
-    type: "Favors",
     description: "A selection of cocktails on the honeymoon.",
     priceCents: 2500,
     imageUrl:
@@ -16,7 +15,6 @@ export const sampleProducts: Product[] = [
     id: "airfare-honeymoon",
     sku: "AIRFARE-HONEYMOON",
     name: "Airfare for Honeymoon",
-    type: "Travel",
     description: "Round-trip airfare for the honeymoon destination.",
     priceCents: 15000,
     imageUrl:
@@ -27,7 +25,6 @@ export const sampleProducts: Product[] = [
     id: "favor-candle",
     sku: "FAVOR-CANDLE",
     name: "Scented Candles",
-    type: "Favors",
     description: "A personlized scented candle for the house.",
     priceCents: 2500,
     imageUrl:
@@ -38,7 +35,6 @@ export const sampleProducts: Product[] = [
     id: "dog-sitting-service",
     sku: "DOG-SITTING",
     name: "Dog Sitting Service",
-    type: "Favors",
     description: "Professional dog sitting service for your pets while you're on your honeymoon.",
     priceCents: 10000,
     imageUrl:
@@ -49,7 +45,6 @@ export const sampleProducts: Product[] = [
     id: "morning-coffee",
     sku: "MORNING-COFFEE",
     name: "Morning Coffee",
-    type: "Favors",
     description: "A delightful morning coffee as fuel for the adventure.",
     priceCents: 2000,
     imageUrl:
@@ -60,7 +55,6 @@ export const sampleProducts: Product[] = [
     id: "ramsay-restaurant-experience",
     sku: "RAMSAY-RESTAURANT-EXPERIENCE",
     name: "Gordon Ramsay Restaurant Experience",
-    type: "Foodie Experience",
     description: "A world-class dining experience at one of Gordon Ramsay's restaurants.",
     priceCents: 10000,
     imageUrl:
@@ -71,7 +65,6 @@ export const sampleProducts: Product[] = [
     id: "dintaifung-restaurant-experience",
     sku: "DINTAIFUNG-RESTAURANT-EXPERIENCE",
     name: "Din Tai Fung Restaurant Experience",
-    type: "Foodie Experience",
     description: "A great lunch spot for food lovers.",
     priceCents: 10000,
     imageUrl:
@@ -82,7 +75,6 @@ export const sampleProducts: Product[] = [
     id: "nachodaddy-restaurant-experience",
     sku: "NACHODADDY-RESTAURANT-EXPERIENCE",
     name: "Nacho Daddy Restaurant Experience",
-    type: "Foodie Experience",
     description: "A fun and simple spot for food lovers.",
     priceCents: 10000,
     imageUrl:
@@ -93,7 +85,6 @@ export const sampleProducts: Product[] = [
     id: "museum-of-celebrity-wax-figures",
     sku: "MUSEUM-OF-CELEBRITY-WAX-FIGURES",
     name: "Museum of Celebrity Wax Figures",
-    type: "Tours Together",
     description: "A tour of the museum featuring celebrity wax figures.",
     priceCents: 3000,
     imageUrl:
@@ -104,7 +95,6 @@ export const sampleProducts: Product[] = [
     id: "museum-of-illusion",
     sku: "MUSEUM-OF-ILLUSION",
     name: "Museum of Illusion",
-    type: "Tours Together",
     description: "A tour of the museum featuring amazing optical illusions.",
     priceCents: 3200,
     imageUrl:
@@ -115,7 +105,6 @@ export const sampleProducts: Product[] = [
     id: "atv-rides-in-nevada-desert",
     sku: "ATV-RIDESAND-NEVADA",
     name: "ATV Rides in Nevada Desert",
-    type: "Travel",
     description: "A fun experience driving through the Nevada desert.",
     priceCents: 7500,
     imageUrl:
@@ -126,7 +115,6 @@ export const sampleProducts: Product[] = [
     id: "honeymoon-fund",
     sku: "HONEYMOON-FUND",
     name: "Vagas Honeymoon Elvis Wedding Experience",
-    type: "Travel",
     description: "A fund to help cover the costs of your honeymoon.",
     priceCents: 10000,
     imageUrl:
