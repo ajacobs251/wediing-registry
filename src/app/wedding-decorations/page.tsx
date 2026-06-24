@@ -15,10 +15,11 @@ export default async function WeddingDecorationsPage() {
     <div className="page-shell">
       <section className="section-heading">
         <p className="eyebrow">Registry</p>
-        <h1>Wedding Decorations</h1>
+        <h1>Wedding Registry</h1>
         <p>
-          Here is an option for those to contribute to help decorate the wedding. You can view the
-          list here.
+          Here is an option for those who would like to contribute to the wedding. Any contribution is greatly appreciated.
+          <br>
+          Thank you - Kenzie and Alex.
         </p>
         <div className="actions">
           <a
