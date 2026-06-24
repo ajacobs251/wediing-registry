@@ -10,6 +10,7 @@ export default async function ProductsPage() {
     <div className="page-shell">
       <section className="section-heading">
         <h1>Registry</h1>
+        <p>Click here for the Amazon Registry.</p>
         <div className="actions">
           <Link className="button secondary" href="/wedding-decorations">
             Amazon Registry
