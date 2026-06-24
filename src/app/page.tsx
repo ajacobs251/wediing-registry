@@ -12,7 +12,6 @@ const slideshowImages = Array.from({ length: 13 }, (_, index) => ({
 export default async function Home() {
   const products = await getPublicProducts();
   const activeProducts = products.filter((product) => product.isActive);
-  const categories = Array.from(new Set(activeProducts.map((product) => product.type)));
   const featuredProducts = activeProducts.slice(0, 3);
   return (
     <div className="page-shell">
@@ -56,27 +55,6 @@ export default async function Home() {
 
       <section className="section">
         <div className="section-heading">
-          <p className="eyebrow">Categories</p>
-          <h2>Shop by type</h2>
-        </div>
-        <div className="category-grid">
-          {categories.map((category) => (
-            <Link className="category-card" href={`/products#${category}`} key={category}>
-              <span>{category}</span>
-              <small>
-                {
-                  activeProducts.filter((product) => product.type === category)
-                    .length
-                }{" "}
-                items
-              </small>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
           <p className="eyebrow">Featured</p>
           <h2>Ready for the celebration</h2>
         </div>
@@ -88,7 +66,6 @@ export default async function Home() {
                 <img src={product.imageUrl} alt="" className="product-image" />
               </div>
               <div className="product-card-body">
-                <p className="product-type">{product.type}</p>
                 <h3>{product.name}</h3>
                 <p className="product-price">{formatCurrency(product.priceCents)}</p>
               </div>

@@ -36,7 +36,6 @@ export function CartView() {
                 className="cart-item-image"
               />
               <div>
-                <p className="product-type">{item.product.type}</p>
                 <h3>{item.product.name}</h3>
                 <p className="muted">
                   {formatCurrency(item.product.priceCents)} each
