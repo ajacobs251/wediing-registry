@@ -14,8 +14,7 @@ export default async function WeddingDecorationsPage() {
   return (
     <div className="page-shell">
       <section className="section-heading">
-        <p className="eyebrow">Registry</p>
-        <h1>Wedding Registry</h1>
+        <h1>Amazon Wedding Registry</h1>
         <p>
           Here is an option for those who would like to contribute to the wedding. Any contribution is greatly appreciated.
           <br />
