@@ -18,7 +18,7 @@ export default async function WeddingDecorationsPage() {
         <h1>Wedding Registry</h1>
         <p>
           Here is an option for those who would like to contribute to the wedding. Any contribution is greatly appreciated.
-          <br>
+          <br />
           Thank you - Kenzie and Alex.
         </p>
         <div className="actions">
