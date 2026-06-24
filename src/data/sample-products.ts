@@ -125,7 +125,7 @@ export const sampleProducts: Product[] = [
   {
     id: "honeymoon-fund",
     sku: "HONEYMOON-FUND",
-    name: "Vagas Honeymoon Elvis Wedding Experience",
+    name: "Vegas Honeymoon Elvis Wedding Experience",
     type: "Travel",
     description: "A fund to help cover the costs of your honeymoon.",
     priceCents: 10000,
