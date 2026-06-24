@@ -9,11 +9,10 @@ export default async function ProductsPage() {
   return (
     <div className="page-shell">
       <section className="section-heading">
-        <p className="eyebrow">Registry</p>
-        <h1>Browse the Registry</h1>
+        <h1>Registry</h1>
         <div className="actions">
           <Link className="button secondary" href="/wedding-decorations">
-            Wedding Decorations
+            Amazon Registry
           </Link>
         </div>
       </section>
