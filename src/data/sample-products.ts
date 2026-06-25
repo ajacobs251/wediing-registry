@@ -24,14 +24,14 @@ export const sampleProducts: Product[] = [
     isActive: true,
   },
   {
-    id: "favor-candle",
-    sku: "FAVOR-CANDLE",
-    name: "Scented Candles",
-    type: "Honeymoon Gifts",
-    description: "A personlized scented candle for the house.",
-    priceCents: 2500,
+    id: "museum-of-illusion",
+    sku: "MUSEUM-OF-ILLUSION",
+    name: "Museum of Illusion",
+    type: "Tours Together",
+    description: "A tour of the museum featuring amazing optical illusions.",
+    priceCents: 3200,
     imageUrl:
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=80",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/68/88/d5/caption.jpg?w=1200&h=1200&s=1",
     isActive: true,
   },
   {
@@ -101,14 +101,14 @@ export const sampleProducts: Product[] = [
     isActive: true,
   },
   {
-    id: "museum-of-illusion",
-    sku: "MUSEUM-OF-ILLUSION",
-    name: "Museum of Illusion",
-    type: "Tours Together",
-    description: "A tour of the museum featuring amazing optical illusions.",
-    priceCents: 3200,
+    id: "favor-candle",
+    sku: "FAVOR-CANDLE",
+    name: "Scented Candles",
+    type: "Honeymoon Gifts",
+    description: "A personlized scented candle for the house.",
+    priceCents: 2500,
     imageUrl:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/68/88/d5/caption.jpg?w=1200&h=1200&s=1",
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=80",
     isActive: true,
   },
   {
