@@ -754,6 +754,14 @@ main {
   max-width: 720px;
 }
 
+.rsvp-access-form {
+  max-width: 520px;
+}
+
+.rsvp-access-heading {
+  max-width: 720px;
+}
+
 .rsvp-thank-you {
   display: grid;
   gap: 20px;

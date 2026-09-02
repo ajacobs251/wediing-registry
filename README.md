@@ -3,12 +3,13 @@
 A Next.js storefront for curated wedding items. The app uses:
 
 - Next.js App Router and TypeScript
-- Vercel hosting
+- Netlify hosting
 - Client-side cart storage with `localStorage`
 - Airtable for products, orders, and order items
 - Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
 - QR-based checkout for Venmo, Cash App, and PayPal
 - Resend email notifications when registry items are purchased, including optional customer receipt emails
+- Password-protected wedding RSVP access using a signed browser session
 
 ## Local development
 
@@ -38,15 +39,25 @@ Required for real Airtable-backed orders:
 - `AIRTABLE_PRODUCTS_TABLE`
 - `AIRTABLE_ORDERS_TABLE`
 - `AIRTABLE_ORDER_ITEMS_TABLE`
+
+Required for payment links and email notifications:
+
 - `NEXT_PUBLIC_VENMO_USERNAME`
 - `NEXT_PUBLIC_CASHAPP_CASHTAG`
 - `NEXT_PUBLIC_PAYPAL_ME_HANDLE`
 - `RESEND_API_KEY`
 - `REGISTRY_EMAIL_FROM`
 
+Required for password-protected RSVP access:
+
+- `RSVP_PASSWORD`
+- `RSVP_SESSION_SECRET`
+
 The Mail In Check address is intentionally kept as a code placeholder. Update it in `src/lib/payments.ts` by replacing the `CHECK_MAILING_ADDRESS` lines with the real mailing address.
 
 `REGISTRY_EMAIL_FROM` must be a sender address verified in Resend, for example `Wedding Registry <registry@yourdomain.com>`. If `RESEND_API_KEY` or `REGISTRY_EMAIL_FROM` is missing, checkout still works but the email notification is skipped.
+
+`RSVP_PASSWORD` is the shared password provided to invited wedding guests. `RSVP_SESSION_SECRET` signs the secure RSVP access cookie and should be a separate random value of at least 32 characters. Keep both values in local or Netlify environment variables and never commit their real values. Guests remain authorized in a browser for 30 days after entering the password.
 
 ## Airtable schema
 
@@ -106,6 +117,6 @@ Expected fields:
 9. If the customer entered an email address, the app sends them a receipt with their purchased items, amounts, confirmation code, and the home picture.
 10. You manually match the payment to the Airtable order and update the order status.
 
-## Deploying to Vercel
+## Deploying to Netlify
 
-Connect the GitHub repository to Vercel, add the environment variables in Vercel project settings, and deploy. Do not use `output: "export"` because the Airtable integration needs server-side route handlers.
+Connect the GitHub repository to Netlify, add the environment variables in the Netlify project configuration, and deploy. Do not use `output: "export"` because the Airtable integration and RSVP password gate need server-side route handlers.

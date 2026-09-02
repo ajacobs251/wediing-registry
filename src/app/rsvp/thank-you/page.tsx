@@ -1,6 +1,21 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function RsvpThankYouPage() {
+import { hasRsvpAccess } from "@/lib/rsvp-access";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default async function RsvpThankYouPage() {
+  if (!(await hasRsvpAccess())) {
+    redirect("/rsvp");
+  }
+
   return (
     <div className="page-shell">
       <section className="checkout-card rsvp-thank-you">

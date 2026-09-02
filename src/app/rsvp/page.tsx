@@ -1,6 +1,32 @@
-import { RsvpForm } from "@/components/rsvp-form";
+import type { Metadata } from "next";
 
-export default function RsvpPage() {
+import { RsvpAccessForm } from "@/components/rsvp-access-form";
+import { RsvpForm } from "@/components/rsvp-form";
+import { hasRsvpAccess } from "@/lib/rsvp-access";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default async function RsvpPage() {
+  const hasAccess = await hasRsvpAccess();
+
+  if (!hasAccess) {
+    return (
+      <div className="page-shell">
+        <section className="section-heading rsvp-access-heading">
+          <p className="eyebrow">Private guest access</p>
+          <h1>Enter the wedding password</h1>
+          <p>Use the password provided with your invitation to continue.</p>
+        </section>
+        <RsvpAccessForm />
+      </div>
+    );
+  }
+
   return (
     <div className="page-shell">
       <section className="section-heading">

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendRsvpNotification } from "@/lib/email";
+import { hasRsvpAccess } from "@/lib/rsvp-access";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,13 @@ type RsvpRequest = {
 };
 
 export async function POST(request: Request) {
+  if (!(await hasRsvpAccess())) {
+    return NextResponse.json(
+      { error: "Wedding RSVP access is required." },
+      { status: 401 },
+    );
+  }
+
   try {
     const body = (await request.json()) as RsvpRequest;
 
