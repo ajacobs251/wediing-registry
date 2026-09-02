@@ -44,9 +44,9 @@ export default async function Home() {
           <h1>Wedding in Blue:</h1>
           <h1>A Symphony of Love</h1>
           <div className="hero-actions">
-            {/*<Link className="button primary" href="/rsvp">
+            <Link className="button primary" href="/rsvp">
               RSVP
-            </Link>*/}
+            </Link>
             <Link className="button primary" href="/products">
               Browse Registry
             </Link>

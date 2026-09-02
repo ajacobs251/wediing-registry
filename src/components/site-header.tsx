@@ -16,7 +16,7 @@ export function SiteHeader() {
           <Link href="/">Home</Link>
           <Link href="/products">Registry</Link>
           <Link href="/wedding-info">Wedding Info</Link>
-          {/*<Link href="/rsvp">RSVP</Link>*/}
+          <Link href="/rsvp">RSVP</Link>
           <Link href="/cart" className="cart-link">
             Cart <span className="cart-count">{itemCount}</span>
           </Link>
