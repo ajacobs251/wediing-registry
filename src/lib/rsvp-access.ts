@@ -4,11 +4,7 @@ import { cookies } from "next/headers";
 export const RSVP_ACCESS_COOKIE = "wedding-rsvp-access";
 export const RSVP_SESSION_LIFETIME_SECONDS = 60 * 60 * 24 * 30;
 
-const RSVP_SESSION_VERSION = "v1";
-
-function getWeddingPassword() {
-  return process.env.RSVP_PASSWORD || undefined;
-}
+const RSVP_SESSION_VERSION = "v2";
 
 function getSessionSecret() {
   const secret = process.env.RSVP_SESSION_SECRET;
@@ -28,17 +24,7 @@ function signSessionPayload(payload: string, secret: string) {
 }
 
 export function isRsvpAccessConfigured() {
-  return Boolean(getWeddingPassword() && getSessionSecret());
-}
-
-export function isRsvpPasswordValid(password: unknown) {
-  const weddingPassword = getWeddingPassword();
-
-  if (typeof password !== "string" || !weddingPassword) {
-    return false;
-  }
-
-  return safelyMatches(password, weddingPassword);
+  return Boolean(getSessionSecret());
 }
 
 export function createRsvpAccessToken() {

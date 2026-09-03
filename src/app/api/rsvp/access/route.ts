@@ -2,21 +2,21 @@ import { NextResponse } from "next/server";
 import {
   createRsvpAccessToken,
   isRsvpAccessConfigured,
-  isRsvpPasswordValid,
   RSVP_ACCESS_COOKIE,
   RSVP_SESSION_LIFETIME_SECONDS,
 } from "@/lib/rsvp-access";
+import { isRsvpInvitationLookupValid } from "@/lib/rsvp-invitations";
 
 export const dynamic = "force-dynamic";
 
 type RsvpAccessRequest = {
-  password?: unknown;
+  lookup?: unknown;
 };
 
 export async function POST(request: Request) {
   if (!isRsvpAccessConfigured()) {
     console.error(
-      "RSVP access is unavailable because RSVP_PASSWORD is missing or RSVP_SESSION_SECRET is missing or shorter than 32 characters.",
+      "RSVP access is unavailable because RSVP_SESSION_SECRET is missing or shorter than 32 characters.",
     );
 
     return NextResponse.json(
@@ -31,25 +31,28 @@ export async function POST(request: Request) {
     body = (await request.json()) as RsvpAccessRequest;
   } catch {
     return NextResponse.json(
-      { error: "Enter the wedding password." },
+      { error: "Enter your full name or street address." },
       { status: 400 },
     );
   }
 
   if (
-    typeof body.password !== "string" ||
-    body.password.length === 0 ||
-    body.password.length > 256
+    typeof body.lookup !== "string" ||
+    body.lookup.length === 0 ||
+    body.lookup.length > 256
   ) {
     return NextResponse.json(
-      { error: "Enter the wedding password." },
+      { error: "Enter your full name or street address." },
       { status: 400 },
     );
   }
 
-  if (!isRsvpPasswordValid(body.password)) {
+  if (!isRsvpInvitationLookupValid(body.lookup)) {
     return NextResponse.json(
-      { error: "That password is not correct." },
+      {
+        error:
+          "We couldn't find an invitation matching that information. Check the spelling and try again.",
+      },
       { status: 401 },
     );
   }

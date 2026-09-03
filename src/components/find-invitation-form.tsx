@@ -3,9 +3,9 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function RsvpAccessForm() {
+export function FindInvitationForm() {
   const router = useRouter();
-  const [password, setPassword] = useState("");
+  const [lookupValue, setLookupValue] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,12 +20,12 @@ export function RsvpAccessForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ lookup: lookupValue }),
       });
       const data = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(data.error ?? "Unable to verify the password.");
+        throw new Error(data.error ?? "Unable to find your invitation.");
       }
 
       router.refresh();
@@ -33,7 +33,7 @@ export function RsvpAccessForm() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "Unable to verify the password.",
+          : "Unable to find your invitation.",
       );
     } finally {
       setIsSubmitting(false);
@@ -42,18 +42,19 @@ export function RsvpAccessForm() {
 
   return (
     <form
-      className="checkout-card form-grid rsvp-form rsvp-access-form"
+      className="checkout-card form-grid rsvp-form invitation-lookup-form"
       onSubmit={handleSubmit}
     >
       <div className="field">
-        <label htmlFor="rsvpPassword">Wedding password</label>
+        <label htmlFor="invitationLookup">Full name or street address</label>
         <input
-          id="rsvpPassword"
-          autoComplete="current-password"
+          id="invitationLookup"
+          autoComplete="off"
+          maxLength={256}
+          placeholder="Enter your full name or street address"
           required
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          value={lookupValue}
+          onChange={(event) => setLookupValue(event.target.value)}
         />
       </div>
       {error ? (
@@ -66,7 +67,7 @@ export function RsvpAccessForm() {
         disabled={isSubmitting}
         type="submit"
       >
-        {isSubmitting ? "Checking..." : "Continue"}
+        {isSubmitting ? "Searching..." : "Find My Invitation"}
       </button>
     </form>
   );

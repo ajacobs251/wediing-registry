@@ -9,7 +9,7 @@ A Next.js storefront for curated wedding items. The app uses:
 - Manual payment handoff through Venmo, Cash App, PayPal, or Mail In Check
 - QR-based checkout for Venmo, Cash App, and PayPal
 - Resend email notifications when registry items are purchased, including optional customer receipt emails
-- Password-protected wedding RSVP access using a signed browser session
+- Guest-list-protected wedding RSVP access using name or address verification and a signed browser session
 
 ## Local development
 
@@ -48,16 +48,17 @@ Required for payment links and email notifications:
 - `RESEND_API_KEY`
 - `REGISTRY_EMAIL_FROM`
 
-Required for password-protected RSVP access:
+Required for invitation-protected RSVP access:
 
-- `RSVP_PASSWORD`
 - `RSVP_SESSION_SECRET`
 
 The Mail In Check address is intentionally kept as a code placeholder. Update it in `src/lib/payments.ts` by replacing the `CHECK_MAILING_ADDRESS` lines with the real mailing address.
 
 `REGISTRY_EMAIL_FROM` must be a sender address verified in Resend, for example `Wedding Registry <registry@yourdomain.com>`. If `RESEND_API_KEY` or `REGISTRY_EMAIL_FROM` is missing, checkout still works but the email notification is skipped.
 
-`RSVP_PASSWORD` is the shared password provided to invited wedding guests. `RSVP_SESSION_SECRET` signs the secure RSVP access cookie and should be a separate random value of at least 32 characters. Keep both values in local or Netlify environment variables and never commit their real values. Guests remain authorized in a browser for 30 days after entering the password.
+The RSVP navigation and home-page buttons are public, but the RSVP form is shown only after a visitor matches a full name or street address from the invitation list. The list is committed only as normalized one-way hashes, so guest names and addresses are not published in plaintext in the repository.
+
+`RSVP_SESSION_SECRET` signs the secure RSVP access cookie and must be a random value of at least 32 characters. Keep it in local or Netlify environment variables and never commit its real value. Guests remain authorized in a browser for 30 days after finding their invitation.
 
 ## Airtable schema
 
