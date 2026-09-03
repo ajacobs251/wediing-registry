@@ -130,7 +130,8 @@ main {
 
 .slideshow-image-wrap {
   position: relative;
-  min-height: clamp(280px, 48vw, 560px);
+  aspect-ratio: 3 / 2;
+  min-height: unset;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 36px;
@@ -140,6 +141,7 @@ main {
 
 .slideshow-image {
   object-fit: cover;
+  object-position: center 35%;
 }
 
 .slideshow-overlay {
@@ -810,7 +812,6 @@ main {
   }
 
   .slideshow-image-wrap {
-    min-height: 320px;
     border-radius: 28px;
   }
 
