@@ -497,6 +497,17 @@ main {
   font-weight: 850;
 }
 
+.product-purchased-badge {
+  justify-self: start;
+  padding: 5px 12px;
+  border: 1px solid #e3c473;
+  border-radius: 999px;
+  background: #e3c473;
+  color: #0b1942;
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+
 
 .add-to-cart-picker {
   display: grid;

@@ -59,6 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
       <div className="product-card-body">
         <h3>{product.name}</h3>
+        {product.hasBeenPurchased ? <span className="product-purchased-badge">Purchased</span> : null}
         <p className="product-description">{product.description}</p>
         <p className="product-price">{formatCurrency(product.priceCents)}</p>
         {isChoosingQuantity ? (

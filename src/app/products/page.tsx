@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ProductsGrid } from "@/components/products-grid";
 import { getPublicProducts } from "@/lib/airtable";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage() {
   const products = (await getPublicProducts()).filter((product) => product.isActive);
 

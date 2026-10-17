@@ -61,14 +61,50 @@ export async function getPublicProducts(): Promise<Product[]> {
     return sampleProducts;
   }
 
+  let products: Product[];
+
   try {
     const records = await listAirtableRecords(airtableConfig.productsTable);
-    const products = records.map(mapAirtableProduct).filter((product) => product.isActive);
-
-    return products.length > 0 ? products : sampleProducts;
+    const activeProducts = records.map(mapAirtableProduct).filter((product) => product.isActive);
+    products = activeProducts.length > 0 ? activeProducts : sampleProducts;
   } catch (error) {
     console.error("Unable to load Airtable products.", error);
     return sampleProducts;
+  }
+
+  try {
+    // Existing order items also count, including checkouts awaiting manual payment confirmation.
+    const orderItems = await listAirtableRecords(airtableConfig.orderItemsTable, [
+      "Order", "Product", "Product ID", "Quantity",
+    ]);
+    const purchasedProductIds = new Set<string>();
+
+    for (const { fields } of orderItems) {
+      if (!Array.isArray(fields.Order) || fields.Order.length === 0 || asNumber(fields.Quantity) <= 0) {
+        continue;
+      }
+
+      const productId = asString(fields["Product ID"]);
+      if (productId) purchasedProductIds.add(productId);
+
+      if (Array.isArray(fields.Product)) {
+        for (const recordId of fields.Product) {
+          if (typeof recordId === "string") purchasedProductIds.add(recordId);
+        }
+      }
+    }
+
+    return products.map((product) => ({
+      ...product,
+      hasBeenPurchased:
+        purchasedProductIds.has(product.id) ||
+        purchasedProductIds.has(product.sku) ||
+        Boolean(product.airtableRecordId && purchasedProductIds.has(product.airtableRecordId)),
+    }));
+  } catch (error) {
+    // Purchase history must not prevent guests from browsing or ordering gifts.
+    console.error("Unable to load registry purchase history.", error);
+    return products;
   }
 }
 
@@ -200,12 +236,16 @@ function validateCheckout(checkout: CheckoutRequest, products: Product[]) {
   });
 }
 
-async function listAirtableRecords(tableName: string) {
+async function listAirtableRecords(tableName: string, fields: string[] = []) {
   const records: AirtableRecord[] = [];
   let offset: string | undefined;
 
   do {
     const params = new URLSearchParams({ pageSize: "100" });
+
+    for (const field of fields) {
+      params.append("fields[]", field);
+    }
 
     if (offset) {
       params.set("offset", offset);
