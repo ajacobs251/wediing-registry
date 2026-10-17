@@ -118,6 +118,13 @@ Expected fields:
 9. If the customer entered an email address, the app sends them a receipt with their purchased items, amounts, confirmation code, and the home picture.
 10. You manually match the payment to the Airtable order and update the order status.
 
+Registry and featured product cards show a `Purchased` badge when an existing Airtable
+order item links to an order and has a positive quantity for that product. This includes
+past orders and checkouts marked `Pending Payment`; the badge indicates a recorded
+checkout, not verified payment. It shows no purchaser names or counts and does not
+hide the product or restrict additional purchases. The badge updates on a fresh page
+request using uncached Airtable data. No additional Airtable fields are required.
+
 ## Deploying to Netlify
 
 Connect the GitHub repository to Netlify, add the environment variables in the Netlify project configuration, and deploy. Do not use `output: "export"` because the Airtable integration and RSVP password gate need server-side route handlers.

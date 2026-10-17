@@ -7,6 +7,8 @@ import { ImageSlideshow } from "@/components/image-slideshow";
 import { getPublicProducts } from "@/lib/airtable";
 import { formatCurrency } from "@/lib/money";
 
+export const dynamic = "force-dynamic";
+
 async function getSlideshowImages() {
   const slideshowDir = path.join(process.cwd(), "public", "images", "slideshow");
 
@@ -89,6 +91,7 @@ export default async function Home() {
               </div>
               <div className="product-card-body">
                 <h3>{product.name}</h3>
+                {product.hasBeenPurchased ? <span className="product-purchased-badge">Purchased</span> : null}
                 <p className="product-price">{formatCurrency(product.priceCents)}</p>
               </div>
             </article>

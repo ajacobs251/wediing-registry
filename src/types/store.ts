@@ -8,6 +8,7 @@ export type Product = {
   priceCents: number;
   imageUrl: string;
   isActive: boolean;
+  hasBeenPurchased?: boolean;
 };
 
 export type CartProductSnapshot = Pick<
