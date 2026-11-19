@@ -125,6 +125,15 @@ const invitationLookupHashes = new Set([
   "e5e0e99137a27be986ae9a84df49cec65baa6f45b110820abb01418ebfdb38f7",
   "ee7eec7a6ac38dd77af25d16b08a4ddcaf6dd861000f2b86e737fa5cbb10986e",
   "f58aec81a65af4675db0cd99997ffac755ad8906ce01be10145849fa9de82181",
+  // Additional individually approved guest names.
+  "02785a8cd7e9eced1e56ac1ae36c3187c30774b28ac915c829ba5471a598445a",
+  "5e0bcc719f0bafcaa1810a659161817ab995feafb15b606d3d161616131fd3b8",
+  "5ede0ce6144fc192c4874e8adbcf43bbf0ad883cd76a42bf98e165870401c2c6",
+  "737dc88379e36beff088b6cf93968604749ca5e917e2cce190b3f530028dce52",
+  "9336ded63ec59ed197835d88f85eac4aacbd0044829294fe5aba4d744a76b2b0",
+  "b2aff46da8cd7d728a94b8d3fc56c1d82accf4b820dc900ae4fe71da46f2380f",
+  "de859ebef976a92632485731031aa716e74961348fbf9618e1724e01ae19a82f",
+  "e13d6a0e2f9f38897a3ea25fb7d969048f691ba8b4ffce6862d37d7d3edccf36",
 ]);
 
 export function normalizeInvitationLookup(value: string) {
